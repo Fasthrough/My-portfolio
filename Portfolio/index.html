@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Remix Icon (kept from your original) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Font – Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Option 1 – Tailwind CDN (fast, no build) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Inline Tailwind config for the CDN (same as tailwind.config.js) -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0831e7",
+              primaryDark: "#0248e0",
+              secondary: "#ca8a04",
+              mayaBlue: "#70bdfb",
+              textDark: "#1f2937",
+              textLight: "#6b7280",
+              extraLight: "#faf5ff",
+            },
+            fontFamily: {
+              sans: ["Poppins", "system-ui", "sans-serif"],
+            },
+            maxWidth: {
+              screenXL: "1200px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <title>Web Design Mastery | Responsive Portfolio</title>
+  </head>
+
+  <body class="font-sans bg-extraLight text-textDark">
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="fixed inset-x-0 top-0 z-50 bg-extraLight shadow-sm">
+      <div
+        class="max-w-screen-xl mx-auto flex items-center justify-between py-4 px-4 md:px-8"
+      >
+        <div class="logo">
+          <a
+            href="#"
+            class="text-2xl font-semibold text-textDark hover:text-primaryDark transition"
+            >Bueno</a
+          >
+        </div>
+
+        <!-- Mobile hamburger -->
+        <label
+          for="check"
+          class="md:hidden text-2xl text-textDark cursor-pointer"
+        >
+          <i class="ri-menu-line"></i>
+        </label>
+        <input type="checkbox" id="check" class="hidden" />
+
+        <!-- Desktop menu -->
+        <ul class="hidden md:flex items-center gap-4">
+          <li>
+            <a
+              href="#home"
+              class="px-3 py-2 font-semibold text-textDark hover:text-secondary border-b-2 border-transparent hover:border-secondary transition"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#about"
+              class="px-3 py-2 font-semibold text-textDark hover:text-secondary border-b-2 border-transparent hover:border-secondary transition"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="#certificate"
+              class="px-3 py-2 font-semibold text-textDark hover:text-secondary border-b-2 border-transparent hover:border-secondary transition"
+              >Certificate</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="px-3 py-2 font-semibold text-textDark hover:text-secondary border-b-2 border-transparent hover:border-secondary transition"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Mobile menu (shown when checkbox is checked) -->
+      <div class="md:hidden">
+        <ul
+          class="mt-2 flex flex-col items-center gap-6 bg-extraLight py-4 hidden"
+          id="mobileMenu"
+        >
+          <li>
+            <a
+              href="#home"
+              class="text-xl text-textDark hover:text-secondary transition"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#about"
+              class="text-xl text-textDark hover:text-secondary transition"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="#certificate"
+              class="text-xl text-textDark hover:text-secondary transition"
+              >Certificate</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="text-xl text-textDark hover:text-secondary transition"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <script>
+      // Simple mobile‑menu toggle
+      const chk = document.getElementById("check");
+      const mob = document.getElementById("mobileMenu");
+      chk.addEventListener("change", () =>
+        mob.classList.toggle("hidden", !chk.checked)
+      );
+    </script>
+
+    <!-- ==================== HERO / SECTION ==================== -->
+    <section
+      id="home"
+      class="min-h-screen flex items-center bg-extraLight pt-20"
+    >
+      <div
+        class="max-w-screen-xl mx-auto grid gap-8 px-4 md:grid-cols-2 items-center"
+      >
+        <!-- Text block -->
+        <div class="space-y-4">
+          <p
+            class="text-sm font-semibold uppercase tracking-wider text-textDark"
+          >
+            HELLO
+          </p>
+          <h1
+            class="text-4xl md:text-5xl font-light text-textDark leading-tight"
+          >
+            I'm
+            <span class="font-semibold text-primary">Kyll John <br />a</span>
+            Web Developer
+          </h1>
+          <p class="mt-4 text-base text-textDark leading-relaxed">
+            Welcome to my web developer portfolio! I'm Kyll John, a skilled and
+            creative web developer with a passion for creating beautiful,
+            responsive, and user‑friendly websites. I've worked on a variety of
+            web projects, ranging from personal blogs to e‑commerce platforms.
+          </p>
+
+          <div class="mt-6 flex gap-4">
+            <a
+              href="#contact"
+              class="inline-block bg-primary text-white px-5 py-2 rounded hover:bg-primaryDark transition"
+            >
+              Get in Touch
+            </a>
+            <!-- add more buttons if you like -->
+          </div>
+        </div>
+
+        <!-- Image block -->
+        <div class="flex justify-center md:justify-end">
+          <img
+            src="assets/nft.png"
+            alt="profile"
+            class="w-[25rem] max-w-[90%] rounded-full shadow-lg"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="py-20 bg-white">
+      <div
+        class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-12 px-4"
+      >
+        <!-- Text -->
+        <div class="md:w-1/2 space-y-4">
+          <p
+            class="text-sm font-semibold uppercase tracking-wider text-textLight"
+          >
+            Get to know more
+          </p>
+          <h2 class="text-3xl font-bold text-textDark">About Me</h2>
+          <p class="text-base text-textLight leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non
+            risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing
+            nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas
+            ligula massa, varius a, semper congue, euismod non, mi. Proin
+            porttitor, orci nec nonummy molestie, enim est eleifend mi, non
+            fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa,
+            scelerisque vitae, consequat in, pretium a, enim. Pellentesque
+            congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum
+            bibendum augue. Praesent egestas leo in pede. Praesent blandit odio
+            eu enim.
+          </p>
+        </div>
+
+        <!-- Image -->
+        <div class="md:w-2/5 flex justify-center">
+          <img
+            src="assets/mountain.jpg"
+            alt="picture"
+            class="w-full max-w-xs rounded-lg shadow-md"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CERTIFICATE SECTION (placeholder) ==================== -->
+    <section id="certificate" class="py-16 bg-extraLight">
+      <div class="max-w-screen-xl mx-auto text-center px-4">
+        <h2 class="text-3xl font-bold text-textDark mb-6">Certificate</h2>
+        <p class="text-textLight">
+          [Insert your certificates, badges, or a carousel here.]
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION (placeholder) ==================== -->
+    <section id="contact" class="py-16 bg-white">
+      <div class="max-w-screen-xl mx-auto text-center px-4">
+        <h2 class="text-3xl font-bold text-textDark mb-6">Contact</h2>
+        <p class="text-textLight mb-8">
+          Feel free to reach out via email or LinkedIn.
+        </p>
+
+        <a
+          href="mailto:your@email.com"
+          class="inline-block bg-primary text-white px-6 py-3 rounded hover:bg-primaryDark transition"
+        >
+          Send me an email
+        </a>
+      </div>
+    </section>
+  </body>
+</html>

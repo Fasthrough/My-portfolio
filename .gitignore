@@ -1,0 +1,6 @@
+# Ignore everything except Portfolio folder
+*
+!Portfolio/
+!Portfolio/**
+!.gitignore
+!README.md

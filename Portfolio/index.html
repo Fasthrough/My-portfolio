@@ -1,269 +1,638 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Remix Icon -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-
-    <!-- Google Font – Poppins -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Tailwind Configuration -->
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#8B7355",      // Warm beige brown
-              primaryDark: "#6B5B47",  // Darker brown
-              secondary: "#D4B896",    // Light beige
-              textDark: "#4A3728",     // Dark brown for text
-              textLight: "#8B7D6B",    // Medium beige for secondary text
-              extraLight: "#F5F1EB",   // Very light beige background
-              white: "#FFFFFF",
-            },
-            fontFamily: {
-              sans: ["Poppins", "sans-serif"],
-            },
-            maxWidth: {
-              screenXL: "1200px",
-            },
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyll John Bueno - Backend Developer</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Inter+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Inter Display', 'sans-serif']
           },
-        },
-      };
-    </script>
+          colors: {
+            primary: '#8B7355',
+            accent: '#D4AF37',
+            gray: {
+              50: '#FAF9F7',
+              100: '#F5F2ED',
+              200: '#E8E1D5',
+              300: '#D4C4B0',
+              400: '#B8A082',
+              500: '#9C8461',
+              600: '#8B7355',
+              700: '#6D5A45',
+              800: '#4F4132',
+              900: '#3D3226'
+            }
+          },
+          spacing: {
+            '18': '4.5rem',
+            '88': '22rem'
+          },
+          maxWidth: {
+            '8xl': '88rem'
+          }
+        }
+      }
+    }
+  </script>
 
-    <title>Kyll John | Backend Developer Portfolio</title>
-  </head>
-
-  <body class="font-sans bg-extraLight text-textDark leading-relaxed">
+  <style>
+    html { scroll-behavior: smooth; }
     
-    <!-- ==================== NAVIGATION ==================== -->
-    <nav class="fixed inset-x-0 top-0 z-50 bg-extraLight/90 backdrop-blur-md shadow-sm">
-      <div class="max-w-screen-xl mx-auto flex items-center justify-between py-4 px-6">
-        
-        <!-- Logo -->
-        <div class="logo">
-          <a href="#" class="text-2xl font-bold text-textDark tracking-tight hover:text-primary transition">
-            Bueno<span class="text-primary">.</span>
-          </a>
+    .nav-sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .nav-sidebar.open {
+      transform: translateX(0);
+    }
+    
+    @media (min-width: 1024px) {
+      .nav-sidebar {
+        transform: translateX(0);
+      }
+    }
+    
+    .skill-bar {
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.8s ease-out;
+    }
+    
+    .skill-card:hover .skill-bar,
+    .skill-card.animate .skill-bar {
+      transform: scaleX(1);
+    }
+    
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+    
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+  
+  <!-- Sidebar Navigation (Desktop) -->
+  <nav class="nav-sidebar fixed left-0 top-0 h-full w-64 bg-gray-50 border-r border-gray-200 z-50 lg:translate-x-0">
+    <div class="p-8">
+      <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+          <span class="text-white font-bold text-sm">KJ</span>
         </div>
-
-        <!-- Mobile Toggle Button -->
-        <button id="menu-btn" class="md:hidden text-2xl text-textDark focus:outline-none">
-          <i class="ri-menu-3-line"></i>
-        </button>
-
-        <!-- Desktop Menu -->
-        <ul class="hidden md:flex items-center gap-8">
-          <li><a href="#home" class="font-medium text-textDark hover:text-primary transition">Home</a></li>
-          <li><a href="#about" class="font-medium text-textDark hover:text-primary transition">About</a></li>
-          <li><a href="#certificate" class="font-medium text-textDark hover:text-primary transition">Certificates</a></li>
-          <li><a href="#contact" class="px-5 py-2 rounded-full bg-primary text-white font-medium hover:bg-primaryDark transition shadow-md">Contact</a></li>
-        </ul>
+        <div class="font-display font-semibold text-lg">Kyll John</div>
       </div>
+      
+      <ul class="space-y-1">
+        <li><a href="#hero" class="nav-link block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-100 rounded-lg transition">Home</a></li>
+        <li><a href="#about" class="nav-link block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-100 rounded-lg transition">About</a></li>
+        <li><a href="#skills" class="nav-link block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-100 rounded-lg transition">Skills</a></li>
+        <li><a href="#work" class="nav-link block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-100 rounded-lg transition">Work</a></li>
+        <li><a href="#contact" class="nav-link block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-100 rounded-lg transition">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="absolute bottom-8 left-8">
+      <a href="https://github.com/Fasthrough" 
+         class="inline-flex items-center gap-2 text-gray-600 hover:text-primary transition">
+        <i class="ri-github-line text-xl"></i>
+        <span class="text-sm">GitHub</span>
+      </a>
+    </div>
+  </nav>
 
-      <!-- Mobile Menu (Hidden by default) -->
-      <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full left-0 top-full">
-        <ul class="flex flex-col items-center gap-6 py-8">
-          <li><a href="#home" class="text-lg font-medium text-textDark hover:text-primary" onclick="closeMenu()">Home</a></li>
-          <li><a href="#about" class="text-lg font-medium text-textDark hover:text-primary" onclick="closeMenu()">About</a></li>
-          <li><a href="#certificate" class="text-lg font-medium text-textDark hover:text-primary" onclick="closeMenu()">Certificates</a></li>
-          <li><a href="#contact" class="text-lg font-medium text-primary" onclick="closeMenu()">Contact</a></li>
-        </ul>
+  <!-- Mobile Header -->
+  <header class="lg:hidden fixed top-0 w-full bg-gray-50/95 backdrop-blur-sm border-b border-gray-200 z-40">
+    <div class="flex items-center justify-between px-6 py-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+          <span class="text-white font-bold text-xs">KJ</span>
+        </div>
+        <span class="font-display font-semibold">Kyll John</span>
       </div>
-    </nav>
+      <button id="mobile-menu-btn" class="p-2">
+        <i class="ri-menu-line text-xl"></i>
+      </button>
+    </div>
+  </header>
 
-    <!-- ==================== HERO SECTION ==================== -->
-    <section id="home" class="min-h-screen flex items-center pt-20 px-6">
-      <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+  <!-- Main Content -->
+  <main class="lg:ml-64">
+    
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center px-6 lg:px-12 py-20 lg:py-0">
+      <div class="max-w-4xl mx-auto lg:mx-0 lg:max-w-none grid lg:grid-cols-12 gap-12 items-center w-full">
         
         <!-- Text Content -->
-        <div class="order-2 md:order-1 space-y-6">
-          <div class="inline-block px-3 py-1 bg-secondary/30 text-primaryDark font-semibold rounded-full text-sm tracking-wide">
-            BACKEND DEVELOPER
-          </div>
-          <h1 class="text-4xl md:text-6xl font-bold text-textDark leading-tight">
-            Hi, I'm <span class="text-primary">Kyll John</span>. <br />
-            A passionate Backend Developer.
-          </h1>
-          <p class="text-lg text-textLight max-w-lg">
-            I specialize in building robust backend systems that power seamless web applications.
-          </p>
-          <!-- Social Links -->
-          <div class="flex gap-5 text-2xl text-textLight pt-6">
-            <a href="#" class="hover:text-primary transition"><i class="ri-github-fill"></i></a>
-            <a href="#" class="hover:text-primary transition"><i class="ri-linkedin-fill"></i></a>
-            <a href="#" class="hover:text-primary transition"><i class="ri-twitter-x-line"></i></a>
-          </div>
-        </div>
-
-        <!-- Image Content -->
-        <div class="order-1 md:order-2 flex justify-center md:justify-end relative">
-          <!-- Decorative circle background -->
-          <div class="absolute inset-0 bg-secondary/20 rounded-full blur-3xl scale-75 -z-10"></div>
-          
-          <!-- Profile Image -->
-          <img
-            src="assets/PIC.png"
-            alt="Kyll John Profile"
-            class="w-80 h-80 md:w-[28rem] md:h-[28rem] object-cover rounded-2xl shadow-2xl border-4 border-white"
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== ABOUT SECTION ==================== -->
-    <section id="about" class="py-24 bg-white">
-      <div class="max-w-screen-xl mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-          
-          <!-- About Text -->
+        <div class="lg:col-span-7 space-y-8 fade-up">
           <div>
-            <span class="text-primary font-bold uppercase tracking-widest text-sm">About Me</span>
-            <h2 class="text-3xl md:text-4xl font-bold text-textDark mt-2 mb-6">Building the engine behind the web.</h2>
-            <p class="text-textLight leading-relaxed mb-6">
-              I am a passionate Backend Developer focused on creating scalable and efficient server-side applications. 
-              My expertise lies in designing database architectures and developing RESTful APIs that serve as the backbone for modern web applications.
+            <p class="text-accent font-medium mb-4 tracking-wide">BACKEND DEVELOPER</p>
+            <h1 class="font-display font-bold text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6">
+              Building reliable<br>
+              <span class="text-gray-600">digital foundations</span>
+            </h1>
+            <p class="text-xl text-gray-700 leading-relaxed max-w-lg">
+              I create robust backend systems and APIs that power seamless digital experiences. 
+              Currently focused on modern web technologies and scalable architecture.
             </p>
-            
-            <div class="flex gap-8">
-              <div>
-                <h3 class="text-3xl font-bold text-primary">01+</h3>
-                <p class="text-sm text-textDark">Years Experience</p>
-              </div>
-              <div>
-                <h3 class="text-3xl font-bold text-primary">3+</h3>
-                <p class="text-sm text-textDark">Projects Completed</p>
-              </div>
-            </div>
           </div>
-
-          <!-- Skills / Tech Stack -->
-          <div class="bg-extraLight p-8 rounded-2xl">
-            <h3 class="text-xl font-bold text-textDark mb-6">Tech Stack</h3>
-            <div class="flex flex-wrap gap-3">
-              <!-- Skill Badges -->
-              <span class="px-4 py-2 bg-white text-textDark rounded shadow-sm font-medium">Javascript</span>
-              <span class="px-4 py-2 bg-white text-textDark rounded shadow-sm font-medium">Java</span>
-              <span class="px-4 py-2 bg-white text-textDark rounded shadow-sm font-medium">MySQL</span>
-              <span class="px-4 py-2 bg-white text-textDark rounded shadow-sm font-medium">Laravel</span>
-              <span class="px-4 py-2 bg-white text-textDark rounded shadow-sm font-medium">Git</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== CERTIFICATE SECTION ==================== -->
-    <section id="certificate" class="py-24 bg-extraLight">
-      <div class="max-w-screen-xl mx-auto px-6">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-textDark mt-2">My Certificates</h2>
-        </div>
-
-        <!-- Grid Layout for Certificates -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <!-- Certificate 1 -->
-          <div class="group bg-white p-2 rounded-xl shadow-md hover:shadow-xl transition duration-300">
-            <div class="overflow-hidden rounded-lg">
-              <img 
-                src="assets/Cert 1.png" 
-                alt="Certificate 1" 
-                class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500"
-              />
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#contact" 
+               class="inline-flex items-center justify-center px-8 py-4 bg-primary text-gray-50 font-semibold rounded-xl hover:bg-primary/90 transition transform hover:scale-105">
+              Get in touch
+            </a>
+          </div>
+        </div>
+        
+        <!-- Image -->
+        <div class="lg:col-span-5 fade-up">
+          <div class="relative">
+            <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl">
+              <img src="assets/PIC.png" alt="Kyll John" class="w-full h-full object-cover">
             </div>
           </div>
+        </div>
+        
+      </div>
+    </section>
 
-          <!-- Certificate 2 -->
-          <div class="group bg-white p-2 rounded-xl shadow-md hover:shadow-xl transition duration-300">
-            <div class="overflow-hidden rounded-lg">
-              <img 
-                src="assets/Cert 2.png" 
-                alt="Certificate 2" 
-                class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500"
-              />
+    <!-- About Section -->
+    <section id="about" class="py-20 lg:py-32 px-6 lg:px-12 bg-white">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="grid lg:grid-cols-12 gap-16 items-start">
+          
+          <!-- Main Content -->
+          <div class="lg:col-span-8 space-y-8 fade-up">
+            <div>
+              <h2 class="font-display font-bold text-4xl lg:text-5xl mb-6 text-gray-800">
+                About me
+              </h2>
+              <div class="prose prose-lg prose-gray max-w-none space-y-6 text-gray-700">
+                <p>
+                  I'm a backend developer with 2+ years of experience building web applications that matter. 
+                  I believe great software should be invisible working reliably in the background to create 
+                  seamless user experiences.
+                </p>
+                <p>
+                  My approach focuses on clean, maintainable code and systems that scale. I enjoy the challenge 
+                  of architecting solutions that handle complex data relationships and high-performance requirements 
+                  while remaining simple to understand and extend.
+                </p>
+              </div>
             </div>
           </div>
-
-          <!-- Certificate 3 -->
-          <div class="group bg-white p-2 rounded-xl shadow-md hover:shadow-xl transition duration-300">
-            <div class="overflow-hidden rounded-lg">
-              <img 
-                src="assets/Cert 3.png" 
-                alt="Certificate 3" 
-                class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500"
-              />
+          
+          <!-- Stats Sidebar -->
+          <div class="lg:col-span-4 space-y-8 fade-up">
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-sm border border-gray-200">
+              <h3 class="font-display font-semibold text-xl mb-6 text-gray-800">Quick facts</h3>
+              <dl class="space-y-6">
+                <div>
+                  <dt class="text-sm font-medium text-gray-600 uppercase tracking-wide">Experience</dt>
+                  <dd class="text-2xl font-bold text-primary">2+ years</dd>
+                </div>
+                <div>
+                  <dt class="text-sm font-medium text-gray-600 uppercase tracking-wide">Projects</dt>
+                  <dd class="text-2xl font-bold text-primary">5+ completed</dd>
+                </div>
+                <div>
+                  <dt class="text-sm font-medium text-gray-600 uppercase tracking-wide">Location</dt>
+                  <dd class="text-lg font-semibold text-gray-800">Philippines</dd>
+                </div>
+                <div>
+                  <dt class="text-sm font-medium text-gray-600 uppercase tracking-wide">Availability</dt>
+                  <dd class="text-lg font-semibold text-accent">Open to opportunities</dd>
+                </div>
+              </dl>
             </div>
           </div>
-
+          
         </div>
       </div>
     </section>
 
-    <!-- ==================== CONTACT SECTION ==================== -->
-    <section id="contact" class="py-24 bg-white">
-      <div class="max-w-screen-xl mx-auto px-6">
-        <div class="bg-primaryDark rounded-3xl p-8 md:p-16 text-center text-extraLight shadow-2xl">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Work Together</h2>
-          <p class="text-secondary mb-8 max-w-2xl mx-auto">
-            Have a project in mind or want to discuss backend architecture? 
-            Feel free to reach out. I'm open to new opportunities.
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 lg:py-32 px-6 lg:px-12 bg-gray-50">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="mb-16 fade-up">
+          <h2 class="font-display font-bold text-4xl lg:text-5xl mb-4 text-gray-800">
+            Technical skills
+          </h2>
+          <p class="text-xl text-gray-700 max-w-2xl">
+            Technologies I work with to build modern, scalable applications
           </p>
-          
-          <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-            <!-- Email Button -->
-            <a href="mailto:kylljohnbueno08@gmail.com" class="flex items-center gap-2 bg-extraLight text-textDark px-6 py-3 rounded-lg font-semibold hover:bg-secondary transition">
-              <i class="ri-mail-send-line text-xl"></i> 
-              <span>kylljohnbueno08@gmail.com</span>
-            </a>
+        </div>
 
-            <!-- Phone Number Button -->
-            <a href="tel:09912994573" class="flex items-center gap-2 border-2 border-secondary text-secondary px-6 py-3 rounded-lg font-semibold hover:bg-secondary hover:text-textDark transition">
-              <i class="ri-phone-line text-xl"></i> 
-              <span>09912994573</span>
-            </a>
+        <!-- Skills Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- JavaScript -->
+          <div class="skill-card fade-up bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center border border-yellow-200">
+                <i class="ri-javascript-fill text-yellow-700 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg text-gray-800">JavaScript</h3>
+                <p class="text-gray-600 text-sm">Proficient</p>
+              </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div class="skill-bar bg-yellow-600 h-2 rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-gray-700 text-sm">
+              Modern ES6+ features, async programming, and Node.js development
+            </p>
           </div>
+
+          <!-- ReactJS -->
+          <div class="skill-card fade-up bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center border border-blue-200">
+                <i class="ri-reactjs-line text-blue-700 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg text-gray-800">ReactJS</h3>
+                <p class="text-gray-600 text-sm">Learning</p>
+              </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div class="skill-bar bg-blue-600 h-2 rounded-full" style="width: 70%"></div>
+            </div>
+            <p class="text-gray-700 text-sm">
+              Component-based architecture and modern React patterns
+            </p>
+          </div>
+
+          <!-- PHP/Laravel -->
+          <div class="skill-card fade-up bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center border border-purple-200">
+                <i class="ri-code-s-slash-line text-purple-700 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg text-gray-800">PHP/Laravel</h3>
+                <p class="text-gray-600 text-sm">Proficient</p>
+              </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div class="skill-bar bg-purple-600 h-2 rounded-full" style="width: 80%"></div>
+            </div>
+            <p class="text-gray-700 text-sm">
+              RESTful APIs, MVC architecture, and database relationships
+            </p>
+          </div>
+
+          <!-- MySQL -->
+          <div class="skill-card fade-up bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center border border-orange-200">
+                <i class="ri-database-2-line text-orange-700 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg text-gray-800">MySQL</h3>
+                <p class="text-gray-600 text-sm">Experienced</p>
+              </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div class="skill-bar bg-orange-600 h-2 rounded-full" style="width: 90%"></div>
+            </div>
+            <p class="text-gray-700 text-sm">
+              Database design, optimization, and complex query writing
+            </p>
+          </div>
+
+          <!-- Supabase -->
+          <div class="skill-card fade-up bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center border border-green-200">
+                <i class="ri-database-line text-green-700 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg text-gray-800">Supabase</h3>
+                <p class="text-gray-600 text-sm">Learning</p>
+              </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div class="skill-bar bg-green-600 h-2 rounded-full" style="width: 65%"></div>
+            </div>
+            <p class="text-gray-700 text-sm">
+              Modern backend-as-a-service with PostgreSQL and real-time features
+            </p>
+          </div>
+
+          <!-- Git -->
+          <div class="skill-card fade-up bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center border border-red-200">
+                <i class="ri-git-branch-line text-red-700 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg text-gray-800">Git</h3>
+                <p class="text-gray-600 text-sm">Experienced</p>
+              </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div class="skill-bar bg-red-600 h-2 rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-gray-700 text-sm">
+              Version control, branching strategies, and collaborative development
+            </p>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="bg-extraLight py-8 border-t border-gray-200">
-      <div class="max-w-screen-xl mx-auto px-6 text-center">
-        <p class="text-textLight text-sm">
-          &copy; 2025 Kyll John Bueno. All rights reserved.
-        </p>
+    <!-- Work Section -->
+    <section id="work" class="py-20 lg:py-32 px-6 lg:px-12 bg-white">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="mb-16 fade-up">
+          <h2 class="font-display font-bold text-4xl lg:text-5xl mb-4 text-gray-800">
+            Certifications & achievements
+          </h2>
+          <p class="text-xl text-gray-700 max-w-2xl">
+            Professional development and continuous learning milestones
+          </p>
+        </div>
+
+        <!-- Certificates Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <div class="fade-up bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img src="assets/Cert 1.png" alt="Professional Certificate" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            </div>
+            <div class="p-6">
+              <h3 class="font-display font-semibold text-lg mb-2 text-gray-800">Professional Certificate</h3>
+              <p class="text-gray-700 text-sm">Advanced backend development certification</p>
+            </div>
+          </div>
+
+          <div class="fade-up bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img src="assets/Cert 2.png" alt="Technical Excellence" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            </div>
+            <div class="p-6">
+              <h3 class="font-display font-semibold text-lg mb-2 text-gray-800">Technical Excellence</h3>
+              <p class="text-gray-700 text-sm">Database architecture and optimization expertise</p>
+            </div>
+          </div>
+
+          <div class="fade-up bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group border border-gray-200">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img src="assets/Cert 3.png" alt="Continuous Learning" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            </div>
+            <div class="p-6">
+              <h3 class="font-display font-semibold text-lg mb-2 text-gray-800">Continuous Learning</h3>
+              <p class="text-gray-700 text-sm">Commitment to growth and skill advancement</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </footer>
+    </section>
 
-    <!-- ==================== SCRIPTS ==================== -->
-    <script>
-      // Mobile Menu Logic
-      const menuBtn = document.getElementById("menu-btn");
-      const mobileMenu = document.getElementById("mobile-menu");
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 lg:py-32 px-6 lg:px-12">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+          
+          <!-- Contact Info -->
+          <div class="fade-up space-y-8">
+            <div>
+              <h2 class="font-display font-bold text-4xl lg:text-5xl mb-6">
+                Let's work together
+              </h2>
+              <p class="text-xl text-gray-600 leading-relaxed">
+                I'm currently available for freelance projects and full-time opportunities. 
+                Let's discuss how we can bring your ideas to life.
+              </p>
+            </div>
+            
+            <div class="space-y-6">
+              <a href="mailto:kylljohnbueno08@gmail.com" 
+                 class="flex items-center gap-4 p-6 bg-gray-50 rounded-2xl hover:bg-gray-100 transition group">
+                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center group-hover:bg-accent transition">
+                  <i class="ri-mail-line text-white text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-lg">Email</div>
+                  <div class="text-gray-600">kylljohnbueno08@gmail.com</div>
+                </div>
+              </a>
+              
+              <a href="tel:+639912994573" 
+                 class="flex items-center gap-4 p-6 bg-gray-50 rounded-2xl hover:bg-gray-100 transition group">
+                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center group-hover:bg-accent transition">
+                  <i class="ri-phone-line text-white text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-lg">Phone</div>
+                  <div class="text-gray-600">+63 991 299 4573</div>
+                </div>
+              </a>
+              
+              <a href="https://github.com/Fasthrough" 
+                 class="flex items-center gap-4 p-6 bg-gray-50 rounded-2xl hover:bg-gray-100 transition group">
+                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center group-hover:bg-accent transition">
+                  <i class="ri-github-line text-white text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-lg">GitHub</div>
+                  <div class="text-gray-600">View my repositories</div>
+                </div>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Response Info -->
+          <div class="fade-up">
+            <div class="bg-white rounded-2xl p-8 shadow-sm">
+              <h3 class="font-display font-semibold text-2xl mb-6">What to expect</h3>
+              
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <i class="ri-time-line text-accent text-xl mt-1"></i>
+                  <div>
+                    <div class="font-semibold">Quick response</div>
+                    <div class="text-gray-600 text-sm">I typically respond within 24 hours</div>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="ri-discuss-line text-accent text-xl mt-1"></i>
+                  <div>
+                    <div class="font-semibold">Project discussion</div>
+                    <div class="text-gray-600 text-sm">We'll talk through your requirements and goals</div>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="ri-file-list-3-line text-accent text-xl mt-1"></i>
+                  <div>
+                    <div class="font-semibold">Detailed proposal</div>
+                    <div class="text-gray-600 text-sm">Clear timeline, scope, and pricing</div>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="ri-rocket-line text-accent text-xl mt-1"></i>
+                  <div>
+                    <div class="font-semibold">Let's build</div>
+                    <div class="text-gray-600 text-sm">Collaborative development process</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
 
-      menuBtn.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-      });
+  </main>
 
-      function closeMenu() {
-        mobileMenu.classList.add("hidden");
+  <!-- Footer -->
+  <footer class="lg:ml-64 py-12 px-6 lg:px-12 border-t border-gray-200">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-gray-600">
+        &copy; 2025 Kyll John Bueno. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.querySelector('.nav-sidebar');
+    
+    mobileMenuBtn?.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth < 1024 && 
+          !sidebar.contains(e.target) && 
+          !mobileMenuBtn.contains(e.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
       }
-    </script>
-  </body>
+    });
+    
+    // Smooth scrolling and active states
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          const offset = window.innerWidth >= 1024 ? 0 : 80;
+          const targetPosition = targetElement.offsetTop - offset;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu
+          if (window.innerWidth < 1024) {
+            sidebar.classList.remove('open');
+          }
+        }
+      });
+    });
+    
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all fade-up elements
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Animate skill bars when cards come into view
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.skill-card').forEach(card => {
+      skillObserver.observe(card);
+    });
+    
+    // Active navigation state
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    const setActiveNav = () => {
+      let current = '';
+      const scrollY = window.scrollY;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('text-primary', 'bg-gray-50');
+        link.classList.add('text-gray-600');
+        
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.remove('text-gray-600');
+          link.classList.add('text-primary', 'bg-gray-50');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', setActiveNav);
+    setActiveNav(); // Initial call
+  </script>
+</body>
 </html>
